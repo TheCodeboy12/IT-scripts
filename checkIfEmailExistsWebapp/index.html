@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Email Check Web App</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #eaeaea;
+      text-align: center;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .logo {
+      width: 100%;
+      max-width: 200px;
+      /* Adjust the size of your image */
+      margin: 0 auto 20px;
+      /* Centers the image and adds spacing */
+    }
+
+    .logo img {
+      width: 100%;
+      height: auto;
+    }
+
+    input[type="text"],
+    button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .result-box {
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 4px;
+      color: white;
+      text-align: center;
+    }
+
+    .available {
+      background-color: #28a745;
+      /* Green */
+    }
+
+    .unavailable {
+      background-color: #dc3545;
+      /* Red */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="REPLACE_WITH_YOUR_LOGO_URL" alt="Logo"> // replace with logo
+    </div>
+    <h2>Email availability check tool</h2>
+    <p>Plesae enter the email address that you want to check for availability</p>
+    <input type="text" id="emailInput" placeholder="Email Address">
+    <button onclick="checkEmail()">Check Email</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkEmail() {
+        var email = document.getElementById('emailInput').value;
+        document.getElementById('result').innerText = 'Checking...';
+        document.getElementById('result').className = ''; // Reset class
+        google.script.run.withSuccessHandler(showResult).checkEmailUsage(email);
+    }
+
+    function showResult(result) {
+    var resultDiv = document.getElementById('result');
+    var emoji = '';
+    if (result === 'Email address is available for use') {
+        resultDiv.className = 'result-box available';
+        emoji = '👍'; // Green circle emoji
+    } else {
+        resultDiv.className = 'result-box unavailable';
+        emoji = '🛑'; // Red circle emoji
+    }
+    resultDiv.innerText = emoji + ' ' + result;
+}
+  </script>
+
+</body>
+
+</html>
