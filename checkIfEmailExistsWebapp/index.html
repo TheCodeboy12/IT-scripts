@@ -90,10 +90,10 @@
 <body>
   <div class="container">
     <div class="logo">
-      <img src="REPLACE_WITH_YOUR_LOGO_URL" alt="Logo"> // replace with logo
+      <img src="<?= PropertiesService.getScriptProperties().getProperty('LOGO_URL') ?>" alt="Logo">
     </div>
     <h2>Email availability check tool</h2>
-    <p>Plesae enter the email address that you want to check for availability</p>
+    <p>Plesae enter the Bizzabo email address that you want to check for availability</p>
     <input type="text" id="emailInput" placeholder="Email Address">
     <button onclick="checkEmail()">Check Email</button>
     <div id="result"></div>
