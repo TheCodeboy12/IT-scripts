@@ -1,3 +1,4 @@
+![Untitled design](https://github.com/user-attachments/assets/f2c322c2-06bd-49c5-bc03-33be0401dc2a)
 
 # Find Common Groups App
 
