@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color:   
+ white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;   
+
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    #userEmails {
+      width: 300px;
+      height: 100px; /* Adjust height as needed */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical; /* Allow vertical resizing */
+    }
+    .logo {
+      width: 100%;
+      max-width: 200px;
+      /* Adjust the size of your image */
+      margin: 0 auto 20px;
+      /* Centers the image and adds spacing */
+    }
+
+    .logo img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+        <img src="<?= PropertiesService.getScriptProperties().getProperty('LOGO_URL') ?>" alt="Logo">
+    </div>
+  <h1>Find Common Groups</h1>
+  <h2>Find common google groups between a list of users</h2>
+  <form id="groupForm">
+    <label for="userEmails">Enter user emails (comma-separated):</label>
+    <textarea id="userEmails" name="userEmails" required></textarea><br><br>
+    <button type="submit">Find Groups</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('groupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Show "Loading..." message
+      document.getElementById('result').innerHTML = '<p>Loading...</p>';
+
+      const form = document.getElementById('groupForm');
+      const formData = new FormData(form);
+
+      google.script.run
+        .withSuccessHandler(function(resultHtml) {
+          document.getElementById('result').innerHTML = resultHtml;
+        })
+        .processForm(Object.fromEntries(formData));
+    });
+    document.getElementById('userEmails').addEventListener('input', function() {
+    document.getElementById('result').innerHTML = '';
+    });
+  </script>
+</body>
+</html>
