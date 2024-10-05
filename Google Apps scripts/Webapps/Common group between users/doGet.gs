@@ -7,10 +7,7 @@ const _curr_active_user = Session.getActiveUser().getEmail();
 function doGet() {
   const _curr_active_user = Session.getActiveUser().getEmail();
   // List of authorized group emails
-  const authorizedGroups = [
-    'it@'+domain,
-    // Add more authorized group emails as needed
-  ];
+  const authorizedGroups = PropertiesService.getScriptProperties().getProperty("AUTH_GROUPS").split(','); // authorized google groups
 
   // Check if the user is in any of the authorized groups
   let isAuthorized = false;
