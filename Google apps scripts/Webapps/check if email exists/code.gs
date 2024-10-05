@@ -1,3 +1,4 @@
+const DOMAIN = PropertiesService.getScriptProperties().getProperty("DOMAIN")
 const curr_active_user = Session.getActiveUser().getEmail();
 function getService() {
   const service = OAuth2.createService('Google Admin SDK')
@@ -14,12 +15,12 @@ function getService() {
 function checkEmailUsage(email) {
   const curr_user = Session.getEffectiveUser().getEmail();
   console.log(`${curr_user} ran this app to check if ${email} exists`);
-  const regex = /^[a-zA-Z][a-zA-Z0-9._%-]+@bizzabo\.com$/i;
+  const regex = /^[a-zA-Z][a-zA-Z0-9._%-]+@DOMAIN\.com$/i;
   if (regex.test(email.toLowerCase())) {
     const service = getService();
     if (!service.hasAccess()) {
       console.error('Authentication failed.');
-      return "A technical error occured.\nPlease reach out to it@bizzabo.com for support";
+      return "A technical error occured.\nPlease reach out to it@'+DOMAIN'+'.com for support";
     }
 
     const options = {
@@ -119,15 +120,3 @@ function doPost(e) {
   return ContentService.createTextOutput(result)
     .setMimeType(ContentService.MimeType.TEXT);
 }
-
-
-
-
-function main() {
-  var email = "it@bizzabo.com"
-  let g  = getGroupMembers(email)
-  getService().reset();
-
-  //console.info(checkEmailUsage(email));
-}
-
